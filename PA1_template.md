@@ -16,12 +16,15 @@ library(lattice)
 ```
 
 ## Loading and preprocessing the data
-we read the activity.csv file (placed in the current working directory, downloaded from https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip ) into the activity_df variable and insure that column date is of Date class
+we read the activity.csv file (placed in the current working directory, downloaded from https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip ) into the activity_df variable and insure that column date is of Date class. we also check if the figure directory ( the folder where the png images created by the report will be saved ) exists and create it if necessary
 
 
 ```r
 activity_df <- read.csv("./activity.csv")
 activity_df$date =as.Date(activity_df$date)
+if (! file.exists("./figure")) {
+    dir.create("./figure")
+}
 ```
 
 ## What is mean total number of steps taken per day?
@@ -99,7 +102,6 @@ dev.off()
 ##   2
 ```
 ![](./figure/timeseries1.png)
-
 
 ####interval with the biggest number of steps
 in order to determine the interval with the highest number of steps we sort the intervalActivity dataframe by the mean_steps column in descending order and pick the top row value 
@@ -204,7 +206,7 @@ and the median is now slightly higher.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-let's go back to our activity_conv_NA dataframe and buid a new dataframe where we add a new column day_type which will hold a factor variable with two levels : "weekday" and "weekend" . We start by filling every cell in the column with "weekday" and then alter the weekend days to "weekend".
+let's go back to our activity_conv_NA dataframe and buid a new dataframe where we add a new column day_type which will be a factor with two levels : "weekday" and "weekend" . We start by filling every cell in the column with "weekday" and then alter the weekend days to "weekend".
 Then we group by interval and summarise calculating the average number of steps per interval across all days
 
 ```r

@@ -72,9 +72,12 @@ img {
 library(lattice)</code></pre>
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
-<p>we read the activity.csv file (placed in the current working directory, downloaded from <a href="https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip">https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip</a> ) into the activity_df variable and insure that column date is of Date class</p>
+<p>we read the activity.csv file (placed in the current working directory, downloaded from <a href="https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip">https://d396qusza40orc.cloudfront.net/repdata%2Fdata%2Factivity.zip</a> ) into the activity_df variable and insure that column date is of Date class. we also check if the figure directory ( the folder where the png images created by the report will be saved ) exists and create it if necessary</p>
 <pre class="r"><code>activity_df &lt;- read.csv(&quot;./activity.csv&quot;)
-activity_df$date =as.Date(activity_df$date)</code></pre>
+activity_df$date =as.Date(activity_df$date)
+if (! file.exists(&quot;./figure&quot;)) {
+    dir.create(&quot;./figure&quot;)
+}</code></pre>
 </div>
 <div id="what-is-mean-total-number-of-steps-taken-per-day" class="section level2">
 <h2>What is mean total number of steps taken per day?</h2>
@@ -177,7 +180,7 @@ sprintf(&quot;mean total steps per day is : %.2f &quot; , meanSteps)</code></pre
 </div>
 <div id="are-there-differences-in-activity-patterns-between-weekdays-and-weekends" class="section level2">
 <h2>Are there differences in activity patterns between weekdays and weekends?</h2>
-<p>let’s go back to our activity_conv_NA dataframe and buid a new dataframe where we add a new column day_type which will hold a factor variable with two levels : “weekday” and “weekend” . We start by filling every cell in the column with “weekday” and then alter the weekend days to “weekend”. Then we group by interval and summarise calculating the average number of steps per interval across all days</p>
+<p>let’s go back to our activity_conv_NA dataframe and buid a new dataframe where we add a new column day_type which will be a factor with two levels : “weekday” and “weekend” . We start by filling every cell in the column with “weekday” and then alter the weekend days to “weekend”. Then we group by interval and summarise calculating the average number of steps per interval across all days</p>
 <pre class="r"><code>weekActivity_conv_NA &lt;- mutate(activity_conv_NA , day_type=&quot;weekday&quot;  )
 weekActivity_conv_NA[weekdays(weekActivity_conv_NA$date) %in% c(&quot;Saturday&quot;, &quot;Sunday&quot;), &quot;day_type&quot;]=                                                                   &quot;weekend&quot; 
 weekActivity_conv_NA$day_type=factor(weekActivity_conv_NA$day_type)
