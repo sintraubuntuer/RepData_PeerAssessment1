@@ -204,7 +204,7 @@ and the median is now slightly higher.
 
 ## Are there differences in activity patterns between weekdays and weekends?
 
-let's go back to our activity_conv_NA dataframe and buid a new dataframe where we add a new column day_type which will be a factor with two levels : "weekday" and "weekend" . We start by filling every cell in the column with "weekday" and then alter the weekend days to "weekend".
+let's go back to our activity_conv_NA dataframe and buid a new dataframe where we add a new column day_type which will hold a factor variable with two levels : "weekday" and "weekend" . We start by filling every cell in the column with "weekday" and then alter the weekend days to "weekend".
 Then we group by interval and summarise calculating the average number of steps per interval across all days
 
 ```r
