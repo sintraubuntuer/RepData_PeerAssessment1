@@ -100,6 +100,7 @@ dev.off()
 ```
 ![](./figure/timeseries1.png)
 
+
 ####interval with the biggest number of steps
 in order to determine the interval with the highest number of steps we sort the intervalActivity dataframe by the mean_steps column in descending order and pick the top row value 
 
